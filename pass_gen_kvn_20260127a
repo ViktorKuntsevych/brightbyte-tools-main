@@ -1,0 +1,36 @@
+# Password Generator
+# Ver 003a  20260127a
+
+import random
+import string
+import sys # Added for CLI arguments
+
+def passwrd_gen(length):
+    characters = string.ascii_letters + string.digits + string.punctuation
+    if length <= 0:
+        return "Error: Password length must be a positive number."
+    
+   
+    password = ''.join(random.choice(characters) for i in range(length))
+    return password
+
+if __name__ == "__main__":
+    print(f"{'_' * 20} Password Generator {'_' * 20}")
+
+    # Check if a command line argument was provided
+    # sys.argv[0] is the script name, sys.argv[1] would be the length
+    if len(sys.argv) > 1:
+        try:
+            length_pwd = int(sys.argv[1])
+            print(f"Password ({length_pwd} chars): {passwrd_gen(length_pwd)}")
+        except ValueError:
+            print("Error: Please provide a valid number for the length.")
+    else:
+        # Fallback to your original interactive mode if no argument is passed
+        while True:
+            try:
+                length_pwd = int(input("Enter the length of password: "))
+                print(f"\nPassword: {passwrd_gen(length_pwd)}")
+                break
+            except ValueError:
+                print("Invalid input. Please enter a whole number.")
